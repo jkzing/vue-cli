@@ -57,9 +57,10 @@ module.exports = (api, options) => {
         // hmr client
         require.resolve(projectDevServerOptions.hotOnly
           ? 'webpack/hot/only-dev-server'
-          : 'webpack/hot/dev-server')
+          : 'webpack/hot/dev-server'),
         // TODO custom overlay client
         // `@vue/cli-overlay/dist/client`
+        require.resolve('@vue/cli-overlay')
       ]
       if (process.env.APPVEYOR) {
         devClients.push(`webpack/hot/poll?500`)
@@ -100,9 +101,10 @@ module.exports = (api, options) => {
       quiet: true,
       compress: isProduction,
       publicPath: '/',
-      overlay: isProduction // TODO disable this
-        ? false
-        : { warnings: false, errors: true }
+      // overlay: isProduction // TODO disable this
+      //   ? false
+      //   : { warnings: false, errors: true }
+      overlay: false
     }, projectDevServerOptions, {
       https: useHttps,
       proxy: proxySettings,
